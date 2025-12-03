@@ -72,16 +72,16 @@ new
         "align": "center"
     },
     "date": {
-        "x": 367,
-        "y": 1333,
+        "x": 360,
+        "y": 1334,
         "font_size": 45,
         "color": "#666666",
         "font_path": "static/fonts/roboto-date.ttf",
         "align": "left"
     },
     "email": {
-        "x": 1302,
-        "y": 1331,
+        "x": 1297,
+        "y": 1334,
         "font_size": 45,
         "color": "#333333",
         "font_path": "static/fonts/roboto-date.ttf",
@@ -93,6 +93,37 @@ new
         "font_size": 58,
         "font_path": "static/fonts/roboto-date.ttf",
         "color": "#666666",
+        "align": "center"
+    }
+}
+
+
+
+main2
+
+{
+    "name": {
+        "x": 987,
+        "y": 799,
+        "font_size": 100,
+        "color": "#000000",
+        "font_path": "static/fonts/demo-font.otf",
+        "align": "center"
+    },
+    "manager-signature": {
+        "x": 1517,
+        "y": 1097,
+        "font_size": 50,
+        "color": "#333333",
+        "font_path": "static/fonts/sig-font.ttf",
+        "align": "center"
+    },
+    "date": {
+        "x": 1804,
+        "y": 116,
+        "font_size": 50,
+        "color": "#333333",
+        "font_path": "static/fonts/roboto-date.ttf",
         "align": "center"
     }
 }

@@ -111,8 +111,8 @@ def upload():
             position = request.form.get("position")
             date = request.form.get("date")
 
-            if not name or not event or not date:
-                flash("Name, Event, and Date are required fields.", "danger")
+            if not name:
+                flash("Name is required.", "danger")
                 return redirect(request.url)
 
             # Collect custom fields from dynamic inputs
@@ -304,7 +304,7 @@ def generate():
             return redirect(url_for('generate'))
 
         template = db.execute("SELECT * FROM templates WHERE id = ?", template_id)[0]
-        participants = db.execute("SELECT * FROM participants WHERE id IN (" + ",".join("?" for _ in selected_participant_ids) + ")", selected_participant_ids)
+        participants = db.execute("SELECT * FROM participants WHERE id IN (" + ",".join("?" for _ in selected_participant_ids) + ")", *selected_participant_ids)
 
         generated_count = 0
         for participant in participants:
@@ -354,17 +354,12 @@ def participants():
     """Show and manage participants"""
     all_participants_raw = db.execute("SELECT * FROM participants ORDER BY name")
     
-    # Process custom_fields from JSON string to dictionary for display
+    # Process custom_fields from JSON string (if any)
     all_participants = []
     for p in all_participants_raw:
         participant_dict = dict(p) # Convert Row to dict
-        if participant_dict.get("custom_fields"):
-            try:
-                participant_dict["custom_fields"] = json.loads(participant_dict["custom_fields"])
-            except json.JSONDecodeError:
-                participant_dict["custom_fields"] = {"error": "Invalid JSON"}
-        else:
-            participant_dict["custom_fields"] = {} # Ensure it's an empty dict if no custom fields
+        if not participant_dict.get("custom_fields"):
+            participant_dict["custom_fields"] = "{}" # Ensure it's an empty JSON string if no custom fields
         all_participants.append(participant_dict)
 
     return render_template("participants.html", participants=all_participants)
