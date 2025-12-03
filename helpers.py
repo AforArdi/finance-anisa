@@ -79,7 +79,9 @@ def generate_certificate(participant, template_data, output_dir="static/certs"):
                 draw_x = x
                 if config.get("align") == "center":
                     try:
-                        text_width = draw.textlength(text_to_draw, font=font)
+                        # Get text bounding box to calculate width
+                        bbox = draw.textbbox((0,0), text_to_draw, font=font)
+                        text_width = bbox[2] - bbox[0]
                         draw_x = x - (text_width / 2)
                     except Exception as align_e:
                         print(f"Could not calculate text width for alignment: {align_e}. Using original x coordinate.")

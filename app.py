@@ -65,8 +65,8 @@ def upload():
                         else:
                             custom_field_headers.append((h, i)) # Store custom header name and its index
 
-                    if standard_fields["name"] is None or standard_fields["event"] is None or standard_fields["date"] is None:
-                        flash("CSV must contain 'name', 'event', and 'date' columns.", "danger")
+                    if standard_fields["name"] is None:
+                        flash("CSV must contain 'name' column.", "danger")
                         return redirect(request.url)
 
                     count = 0
