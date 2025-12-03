@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 class="mb-4">Add Participants</h1>
+
+    <div class="row">
+        <!-- CSV Upload Form -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Upload CSV File
+                </div>
+                <div class="card-body">
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="csvfile" class="form-label">Select a CSV file with columns: name, email, event, position, date</label>
+                            <input class="form-control" type="file" id="csvfile" name="csvfile" accept=".csv" required>
+                        </div>
+                        <button type="submit" name="submit_button" value="upload_csv" class="btn btn-primary">Upload CSV</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Entry Form -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Add Single Participant
+                </div>
+                <div class="card-body">
+                    <form action="/upload" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email (Optional)</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="event" class="form-label">Event/Course</label>
+                            <input type="text" class="form-control" id="event" name="event" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Position (Optional)</label>
+                            <input type="text" class="form-control" id="position" name="position">
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+
+                        <hr>
+                        <h5>Custom Fields (Optional)</h5>
+                        <div id="custom_fields_container">
+                            <!-- Custom fields will be added here by JavaScript -->
+                        </div>
+                        <button type="button" class="btn btn-info btn-sm mb-3" id="add_custom_field_btn">Add Custom Field</button>
+                        <hr>
+
+                        <button type="submit" name="submit_button" value="add_manual" class="btn btn-secondary">Add Manually</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

@@ -1,40 +1,32 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    Portfolio
-{% endblock %}
+{% block body %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Certificate Generator</h1>
+            <p class="col-md-8 fs-4">Welcome to your custom certificate generation tool. This application allows you to easily create, manage, and download certificates for your students or participants.</p>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg" type="button">Get Started</a>
+        </div>
+    </div>
 
-{% block main %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="text-start">Symbol</th>
-                <th class="text-start">Name</th>
-                <th class="text-end">Shares</th>
-                <th class="text-end">Price</th>
-                <th class="text-end">TOTAL</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for stock in stocks %}
-                <tr>
-                    <td class="text-start">{{ stock.symbol }}</td>
-                    <td class="text-start">{{ stock.name }}</td>
-                    <td class="text-end">{{ stock.shares }}</td>
-                    <td class="text-end">{{ stock.price | usd }}</td>
-                    <td class="text-end">{{ stock.total_value | usd }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td class="border-0 text-start">Cash</td>
-                <td class="border-0 text-end" colspan="4">{{ user_cash | usd }}</td>
-            </tr>
-            <tr>
-                <td class="border-0 text-start">TOTAL</td>
-                <td class="border-0 text-end" colspan="4">{{ grand_total | usd }}</td>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>How it Works</h2>
+            <ol>
+                <li><strong>Upload Data:</strong> Add participant data by uploading a CSV file or entering it manually.</li>
+                <li><strong>Choose Template:</strong> Select a certificate design from the available templates.</li>
+                <li><strong>Generate:</strong> Create all certificates with a single click.</li>
+                <li><strong>Download:</strong> View the list of generated certificates and download them as images.</li>
+            </ol>
+        </div>
+        <div class="col-md-6">
+            <h2>Features</h2>
+            <ul>
+                <li>Bulk creation from CSV files</li>
+                <li>Manual single-entry support</li>
+                <li>Multiple certificate templates</li>
+                <li>Easy download of generated certificates</li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

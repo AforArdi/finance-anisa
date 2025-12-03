@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 class="mb-4">Manage Participants</h1>
+
+    {% if participants %}
+        <form action="{{ url_for('delete_participants') }}" method="post">
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('WARNING: Deleting participants will also delete all associated certificates! Are you sure you want to delete selected participants?');">Delete Selected Participants</button>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="checkbox" id="select_all_participants"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Custom Fields</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participant in participants %}
+                    <tr>
+                        <td><input type="checkbox" name="participant_ids" value="{{ participant.id }}"></td>
+                        <td>{{ participant.name }}</td>
+                        <td>{{ participant.email if participant.email else 'N/A' }}</td>
+                        <td>{{ participant.event }}</td>
+                        <td>{{ participant.position if participant.position else 'N/A' }}</td>
+                        <td>{{ participant.date }}</td>
+                        <td>
+                            {% if participant.custom_fields %}
+                                {% set custom_fields_dict = participant.custom_fields | from_json %}
+                                {% for key, value in custom_fields_dict.items() %}
+                                    <strong>{{ key }}:</strong> {{ value }}<br>
+                                {% endfor %}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    {% else %}
+        <p class="text-muted">No participants added yet. Go to the <a href="{{ url_for('upload') }}">Upload Participants</a> page to add some.</p>
+    {% endif %}
+
+    <script>
+        document.getElementById('select_all_participants').onclick = function() {
+            var checkboxes = document.querySelectorAll('input[name="participant_ids"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    </script>
+{% endblock %}

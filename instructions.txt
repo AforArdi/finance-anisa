@@ -1,0 +1,46 @@
+1. when clicking on add custom field it's opening 2 row named field name and field value, but I want it to open one for every click
+
+2. "CSV must contain 'name', 'event', and 'date' columns." when event or date column is missing in .csv file this error is showing up, but sometime .csv file can only contain name or name and date or name and signature or name or event etc. also this goes for manual section too, adding in all the field should not be mandatory, only name section should be mandatory, other filed filled will be added if user add it in add participant section and also put right value for those field in json file while uploading the certificate template. also in .csv file new field can exist depending on user just like add custom fields work. the program should take it and put it if that new filed also exists in details in json file, other wise the new fields from .csv or from add custom fields should get taken but won't be applied in the certificates is the fields aren't mentioned in the json file while uploading the template
+
+3. this below error is showing up on the site when I tried to generate certificate for multiple user, but this shouldn't happend, this web app is gonna be able to generate certificates for multiple user (max 100):
+RuntimeError
+RuntimeError: more placeholders (?, ?) than values ('6', '8')
+
+Traceback (most recent call last)
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1536, in __call__
+return self.wsgi_app(environ, start_response)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+response = self.handle_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+response = self.full_dispatch_request()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+rv = self.handle_user_exception(e)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+rv = self.dispatch_request()
+     ^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\Downloads\gemini2\app.py", line 307, in generate
+participants = db.execute("SELECT * FROM participants WHERE id IN (" + ",".join("?" for _ in selected_participant_ids) + ")", selected_participant_ids)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\cs50\sql.py", line 28, in decorator
+return f(*args, **kwargs)
+       ^^^^^^^^^^^^^^^^^^
+File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\cs50\sql.py", line 236, in execute
+raise RuntimeError(
+^
+RuntimeError: more placeholders (?, ?) than values ('6', '8')
+The debugger caught an exception in your WSGI application. You can now look at the traceback which led to the error.
+To switch between the interactive traceback and the plaintext one, you can click on the "Traceback" headline. From the text traceback you can also create a paste of it. For code execution mouse-over the frame you want to debug and click on the console icon on the right side.
+
+You can execute arbitrary Python code in the stack frames and there are some extra helpers available for introspection:
+
+dump() shows all variables in the frame
+dump(obj) dumps all that's known about the object
+
+please solve each issue and add each feature described above

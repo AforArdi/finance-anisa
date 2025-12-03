@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 class="mb-4">Generate Certificates</h1>
+
+    <form action="{{ url_for('generate') }}" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Select Participants
+                    </div>
+                    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                        {% if participants %}
+                            {% for participant in participants %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="participant_ids" value="{{ participant.id }}" id="participant_{{ participant.id }}">
+                                    <label class="form-check-label" for="participant_{{ participant.id }}">
+                                        {{ participant.name }} ({{ participant.event }})
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">No participants found. Please add participants first via the <a href="{{ url_for('upload') }}">Upload Participants</a> page.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Select Template
+                    </div>
+                    <div class="card-body">
+                        {% if templates %}
+                            <select class="form-select" name="template_id" required>
+                                <option value="">-- Choose a template --</option>
+                                {% for template in templates %}
+                                    <option value="{{ template.id }}">{{ template.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <p class="text-muted">No templates found. Please add templates first via the <a href="{{ url_for('templates') }}">Manage Templates</a> page.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success btn-lg" {% if not participants or not templates %}disabled{% endif %}>
+                Generate Selected Certificates
+            </button>
+        </div>
+    </form>
+{% endblock %}

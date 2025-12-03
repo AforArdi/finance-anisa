@@ -1,0 +1,98 @@
+{
+    "name": {
+        "x": 500,
+        "y": 709,
+        "font_size": 100,
+        "color": "#000000",
+        "font_path": "static/fonts/demo-font.ttf"
+    },
+    "email": {
+    "x": 1302,
+    "y": 1331,
+    "font_size": 48,
+    "color": "#333333"
+    },
+    "signature": {
+        "x": 1509,
+        "y": 1121,
+        "font_size": 48,
+        "color": "#666666"
+    },
+    "date": {
+        "x": 307,
+        "y": 1331,
+        "font_size": 48,
+        "color": "#666666"
+    }
+}
+
+
+new
+
+{
+    "name": {
+        "x": 999,
+        "y": 650,
+        "font_size": 100,
+        "color": "#000000",
+        "font_path": "static/fonts/demo-font.otf",
+        "align": "center"
+    },
+    "date": {
+    "x": 367,
+    "y": 1333,
+    "font_size": 98,
+    "color": "#666666",
+    "align": "left"
+    },
+    "email": {
+        "x": 1302,
+        "y": 1331,
+        "font_size": 98,
+        "color": "#333333",
+        "align": "left"
+    },
+    "signature": {
+        "x": 1509,
+        "y": 1121,
+        "font_size": 68,
+        "color": "#666666"
+    }
+}
+
+
+
+{
+    "name": {
+        "x": 999,
+        "y": 650,
+        "font_size": 100,
+        "color": "#000000",
+        "font_path": "static/fonts/demo-font.otf",
+        "align": "center"
+    },
+    "date": {
+        "x": 367,
+        "y": 1333,
+        "font_size": 45,
+        "color": "#666666",
+        "font_path": "static/fonts/roboto-date.ttf",
+        "align": "left"
+    },
+    "email": {
+        "x": 1302,
+        "y": 1331,
+        "font_size": 45,
+        "color": "#333333",
+        "font_path": "static/fonts/roboto-date.ttf",
+        "align": "left"
+    },
+    "signature": {
+        "x": 1509,
+        "y": 1121,
+        "font_size": 58,
+        "font_path": "static/fonts/roboto-date.ttf",
+        "color": "#666666",
+        "align": "center"
+    }
+}

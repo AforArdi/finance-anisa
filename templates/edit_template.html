@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 class="mb-4">Edit Template: {{ template.name }}</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Update Template Details
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('edit_template', template_id=template.id) }}" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="template_name" class="form-label">Template Name</label>
+                    <input type="text" class="form-control" id="template_name" name="template_name" value="{{ template.name }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="template_image" class="form-label">Current Template Image</label>
+                    {% if template.file_path %}
+                        <img src="{{ url_for('static', filename='templates/' + template.file_path.split('/')[-1]) }}" alt="{{ template.name }}" class="img-thumbnail d-block mb-2" style="max-height: 150px;">
+                        <small class="text-muted">Current image: {{ template.file_path.split('/')[-1] }}</small>
+                    {% else %}
+                        <p class="text-muted">No image uploaded.</p>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="new_template_image" class="form-label">Upload New Template Image (Optional)</label>
+                    <input class="form-control" type="file" id="new_template_image" name="template_image" accept=".png,.jpg,.jpeg">
+                    <div class="form-text">Upload a new image to replace the current one. Leave blank to keep existing image.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="fields_config" class="form-label">Fields Configuration (JSON)</label>
+                    <textarea class="form-control" id="fields_config" name="fields_config" rows="15" required>{{ template.fields_config_pretty }}</textarea>
+                    <div class="form-text">
+                        <strong>Important:</strong> Font sizes are in pixels and do not correspond to sizes in design software like Canva. You will need to experiment to find the right size. Start with a large value (e.g., 100) for a main heading and adjust from there.
+                        <br><br>
+                        Define text fields as JSON: <code>{"field_name": {"x": 0, "y": 0, "font_size": 24, "color": "#000000", "font_path": "static/fonts/your_font.ttf", "align": "center"}}</code>
+                        <br>
+                        `font_path` is optional. Coordinates are relative to the top-left corner of the image. Add `"align": "center"` to `config` to horizontally center text.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Template</button>
+                <a href="{{ url_for('templates') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

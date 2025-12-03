@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 class="mb-4">Generated Certificates</h1>
+
+    {% if certificates %}
+        <form action="{{ url_for('delete_certificates') }}" method="post">
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected certificates?');">Delete Selected Certificates</button>
+            </div>
+            <div class="row">
+                {% for cert in certificates %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="certificate_ids" value="{{ cert.id }}" id="cert_{{ cert.id }}">
+                                    <label class="form-check-label" for="cert_{{ cert.id }}">
+                                        Select for Deletion
+                                    </label>
+                                </div>
+                            </div>
+                            <img src="{{ url_for('static', filename='certs/' + cert.generated_file_path.split('/')[-1]) }}" class="card-img-top" alt="Certificate for {{ cert.participant_name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ cert.participant_name }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">Template: {{ cert.template_name }}</small><br>
+                                    <small class="text-muted">Generated: {{ cert.created_at }}</small>
+                                </p>
+                                <a href="{{ url_for('download_file', filename=cert.generated_file_path.split('/')[-1]) }}" class="btn btn-primary btn-sm">Download PNG</a>
+                                <a href="{{ url_for('download_pdf', filename=cert.generated_file_path.split('/')[-1]) }}" class="btn btn-secondary btn-sm">Download PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    {% else %}
+        <p class="text-muted">No certificates have been generated yet. Go to the <a href="{{ url_for('generate') }}">Generate Certificates</a> page to create some.</p>
+    {% endif %}
+{% endblock %}
