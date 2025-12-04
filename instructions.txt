@@ -1,6 +1,0 @@
-1. now make a file and name it: what-is-what.txt explaining which file in which folder id doing what
-
-2. also make another file and name it README.md and inside it:
-# MY PROJECT TITLE
-#### Video Demo:  <URL HERE>
-#### Description: <ABOUT THIS PROJECT AND WHAT IT DOES AND IN A SIMPLE UNDERSTANDABLE LANGUAGE HOW TO USE IT>

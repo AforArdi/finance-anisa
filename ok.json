@@ -103,27 +103,15 @@ main2
 
 {
     "name": {
-        "x": 987,
-        "y": 799,
-        "font_size": 100,
+        "x": 1000,
+        "y": 809,
+        "font_size": 70,
         "color": "#000000",
-        "font_path": "static/fonts/demo-font.otf",
-        "align": "center"
-    },
-    "manager-signature": {
-        "x": 1517,
-        "y": 1097,
-        "font_size": 50,
-        "color": "#333333",
-        "font_path": "static/fonts/sig-font.ttf",
-        "align": "center"
-    },
-    "date": {
-        "x": 1804,
-        "y": 116,
-        "font_size": 50,
-        "color": "#333333",
-        "font_path": "static/fonts/roboto-date.ttf",
+        "font_path": "static/fonts/times-new-roman.otf",
         "align": "center"
     }
+}
+
+{
+    "name": {"x": 1000, "y": 809, "font_size": 70, "color": "#000000", "font_path": "static/fonts/times-new-roman.otf", "align": "center"}
 }
