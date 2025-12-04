@@ -1,0 +1,44 @@
+# Project Structure and File Descriptions
+
+This document provides a brief overview of what each file and folder in the project is responsible for.
+
+## Root Directory
+
+- `app.py`: This is the main Flask application file. It contains all the web routes, handles user requests, interacts with the database, and renders the HTML templates.
+
+- `helpers.py`: This file contains helper functions that are used by `app.py`. The primary function here is `generate_certificate`, which handles the image manipulation to create the certificate PNG files.
+
+- `requirements.txt`: This file lists all the Python packages and libraries that the project depends on (e.g., Flask, cs50, Pillow). You can install them using `pip install -r requirements.txt`.
+
+- `certs.db`: This is the SQLite database file. It stores all the data for the application, including participants, certificate templates, and generated certificates.
+
+- `instructions.txt`: This file contains instructions and bug reports for the project.
+
+- `ok.json`: This file contains example JSON configurations for certificate templates.
+
+- `what-is-what.txt`: This file! It explains the project structure.
+
+- `README.md`: This file provides a general overview of the project, including a description and a link to a video demo.
+
+## Directories
+
+- `static/`: This directory contains all the static assets that are served directly to the user's browser without any processing by the server.
+
+  - `static/certs/`: This folder is where the generated certificate PNG images are stored.
+  - `static/css/`: This folder contains the CSS stylesheets for the application (e.g., `style.css`).
+  - `static/fonts/`: This folder stores custom font files (e.g., `.ttf`, `.otf`) that are used when generating certificates.
+  - `static/js/`: This folder contains JavaScript files that are used to add interactive features to the website (e.g., `script.js` for adding custom fields).
+  - `static/templates/`: This folder is where the uploaded certificate template images (the backgrounds) are stored.
+
+- `templates/`: This directory contains all the HTML templates for the website. Flask uses the Jinja2 templating engine to render these files, which means they can include dynamic content.
+
+  - `layout.html`: This is the base template that all other templates extend. It includes the common structure of the website, like the navigation bar and footer.
+  - `index.html`: The homepage of the application.
+  - `upload.html`: The page where users can upload a CSV of participants or add a single participant manually.
+  - `participants.html`: The page for viewing and managing all the participants in the database.
+  - `templates.html`: The page for viewing and managing the certificate templates.
+  - `edit_template.html`: The page for editing an existing certificate template.
+  - `generate.html`: The page where users can select participants and a template to generate certificates.
+  - `certificates.html`: The page that displays all the generated certificates, with options to download or delete them.
+
+- `__pycache__/`: This is a directory that Python creates automatically to store compiled bytecode (`.pyc` files). It's a performance optimization and can be safely ignored.
