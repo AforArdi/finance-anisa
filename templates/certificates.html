@@ -20,15 +20,15 @@
                                     </label>
                                 </div>
                             </div>
-                            <img src="{{ url_for('static', filename='certs/' + cert.generated_file_path.split('/')[-1]) }}" class="card-img-top" alt="Certificate for {{ cert.participant_name }}">
+                            <img src="{{ url_for('static', filename='certs/' + cert.generated_file_path) }}" class="card-img-top" alt="Certificate for {{ cert.participant_name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ cert.participant_name }}</h5>
                                 <p class="card-text">
                                     <small class="text-muted">Template: {{ cert.template_name }}</small><br>
                                     <small class="text-muted">Generated: {{ cert.created_at }}</small>
                                 </p>
-                                <a href="{{ url_for('download_file', filename=cert.generated_file_path.split('/')[-1]) }}" class="btn btn-primary btn-sm">Download PNG</a>
-                                <a href="{{ url_for('download_pdf', filename=cert.generated_file_path.split('/')[-1]) }}" class="btn btn-secondary btn-sm">Download PDF</a>
+                                <a href="{{ url_for('download_file', filename=cert.generated_file_path) }}" class="btn btn-primary btn-sm">Download PNG</a>
+                                <a href="{{ url_for('download_pdf', filename=cert.generated_file_path) }}" class="btn btn-secondary btn-sm">Download PDF</a>
                             </div>
                         </div>
                     </div>

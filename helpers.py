@@ -98,8 +98,8 @@ def generate_certificate(participant, template_data, output_dir="static/certs"):
         output_path = os.path.join(output_dir, filename)
 
         img.save(output_path)
-        # Return a URL-friendly path
-        return output_path.replace("\\", "/")
+        # Return just the filename
+        return filename
 
     except Exception as e:
         print(f"An error occurred during certificate generation: {e}")

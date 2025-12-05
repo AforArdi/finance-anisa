@@ -13,8 +13,8 @@ from helpers import generate_certificate # New import
 # Configure application
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "a_super_secret_key_that_is_long_and_random" # Change for production
-app.config['UPLOAD_FOLDER_TEMPLATES'] = 'static/templates'
-app.config['UPLOAD_FOLDER_CERTS'] = 'static/certs'
+app.config['UPLOAD_FOLDER_TEMPLATES'] = os.path.join(app.root_path, 'static', 'templates')
+app.config['UPLOAD_FOLDER_CERTS'] = os.path.join(app.root_path, 'static', 'certs')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload size
 
 # Ensure the database file exists before connecting
@@ -311,14 +311,14 @@ def generate():
             # Convert participant data to dict as generate_certificate expects dict
             participant_dict = dict(participant)
             
-            # Call the helper function
-            generated_path = generate_certificate(participant_dict, template)
+            # Call the helper function, passing the absolute path for the output directory
+            generated_filename = generate_certificate(participant_dict, template, app.config['UPLOAD_FOLDER_CERTS'])
 
-            if generated_path:
+            if generated_filename:
                 try:
                     db.execute(
                         "INSERT INTO certificates (participant_id, template_id, generated_file_path) VALUES (?, ?, ?)",
-                        participant_dict["id"], template["id"], generated_path
+                        participant_dict["id"], template["id"], generated_filename
                     )
                     generated_count += 1
                 except Exception as e:
@@ -392,9 +392,8 @@ def delete_participants():
             
             for cert in associated_certs:
                 cert_id = cert["id"]
-                file_path_db = cert["generated_file_path"]
+                filename = cert["generated_file_path"]
                 
-                filename = os.path.basename(file_path_db)
                 full_png_path = os.path.join(app.config['UPLOAD_FOLDER_CERTS'], filename)
                 
                 if os.path.exists(full_png_path):
@@ -471,11 +470,7 @@ def delete_certificates():
         try:
             cert = db.execute("SELECT generated_file_path FROM certificates WHERE id = ?", cert_id)
             if cert:
-                file_path_db = cert[0]["generated_file_path"]
-                # Extract filename from the stored path (e.g., static/certs/filename.png)
-                # The stored path might be like 'static/certs/...' or just 'certs/...'
-                # os.path.basename handles both cases correctly
-                filename = os.path.basename(file_path_db)
+                filename = cert[0]["generated_file_path"]
                 full_png_path = os.path.join(app.config['UPLOAD_FOLDER_CERTS'], filename)
                 
                 # Delete PNG file
@@ -515,9 +510,10 @@ if __name__ == '__main__':
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 email TEXT,
-                event TEXT NOT NULL,
+                event TEXT,
                 position TEXT,
-                date TEXT NOT NULL
+                date TEXT,
+                custom_fields TEXT DEFAULT '{}'
             );
         """)
         db.execute("""
@@ -531,14 +527,5 @@ if __name__ == '__main__':
                 FOREIGN KEY (template_id) REFERENCES templates(id)
             );
         """)
-        
-        # --- Database Migration: Add custom_fields to participants table ---
-        try:
-            # Attempt to select the column to see if it exists
-            db.execute("SELECT custom_fields FROM participants LIMIT 1")
-        except RuntimeError: # cs50.SQL raises RuntimeError for SQL errors like "no such column"
-            db.execute("ALTER TABLE participants ADD COLUMN custom_fields TEXT DEFAULT '{}'")
-            print("Added 'custom_fields' column to 'participants' table.")
-        # --- End Database Migration ---
 
     app.run(debug=True, port=5001)
